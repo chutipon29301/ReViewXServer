@@ -157,6 +157,29 @@ body = {
 }
 ```
 
+`post/listMovieSuggestion`
+
+- request body
+```javascript
+body = {
+    movieID: 3841928423432
+}
+```
+
+- response body
+```javascript
+body = {
+    'plot': '',
+    'director': [
+        '','','','',...
+    ],
+    'actor': [
+        '','','','',...
+    ],
+    'trailer': 'http://www.youtube.com'
+}
+```
+
 `post/listReviewSuggestion`
 
 - request body
@@ -267,5 +290,110 @@ body = {
 ```javascript
 body = {
     msg: 'OK'
+}
+```
+
+`post/listReadLater`
+
+- request body
+```javascript
+body = {
+    facebookID: 3841928423432
+}
+```
+
+- response body
+```javascript
+body = {
+    reviewID: [
+        'nu3428qhwfr7439f43tg',
+        'nu3428qhwfr7439f43tg',
+        'nu3428qhwfr7439f43tg',
+        ...
+    ]
+}
+```
+
+`post/listMyReview`
+
+- request body
+```javascript
+body = {
+    facebookID: 3841928423432
+}
+```
+
+- response body
+```javascript
+body = {
+    reviewID: [
+        'nu3428qhwfr7439f43tg',
+        'nu3428qhwfr7439f43tg',
+        'nu3428qhwfr7439f43tg',
+        ...
+    ]
+}
+```
+
+`post/listNearBy`
+
+- request body
+```javascript
+body = {
+}
+```
+
+- response body
+```javascript
+body = {
+    locations: [
+        {
+            x: 120.156468482,
+            y: 1852.1066151231065,
+            name: 'Paragon',
+            address: 'Paragon 6th floor'
+        },
+        ...
+    ]
+}
+```
+
+`post/random`
+
+- request body
+```javascript
+body = {
+    facebookID: 3841928423432
+}
+```
+
+- response body
+```javascript
+body = {
+    locations: [
+        {
+            x: 120.156468482,
+            y: 1852.1066151231065,
+            name: 'Paragon',
+            address: 'Paragon 6th floor'
+        },
+        ...
+    ]
+}
+```
+
+`post/checkUser`
+
+- request body
+```javascript
+body = {
+    facebookID: 3841928423432
+}
+```
+
+- response body
+```javascript
+body = {
+    isRegistered: true
 }
 ```
