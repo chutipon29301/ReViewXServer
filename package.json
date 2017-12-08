@@ -1,0 +1,19 @@
+{
+  "name": "reviewxserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chutipon29301/ReViewXServer.git"
+  },
+  "author": "Chutipon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chutipon29301/ReViewXServer/issues"
+  },
+  "homepage": "https://github.com/chutipon29301/ReViewXServer#readme"
+}
