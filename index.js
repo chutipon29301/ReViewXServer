@@ -92,8 +92,6 @@ MongoClient.connect('mongodb://127.0.0.1:27017/ReviewXServer', function (err, db
         });
     });
 
-
-
     app.post('/post/v1/listGenre', (req, res) => {
         db.collection('genre').find({}).toArray().then(result => {
             for (let i = 0; i < result.length; i++) {
