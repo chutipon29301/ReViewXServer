@@ -28,6 +28,79 @@ MongoClient.connect('mongodb://127.0.0.1:27017/ReviewXServer', function (err, db
     }
     console.log('Successful connect to database');
 
+    app.post('/post/v1/addSuperuser', (req, res) => {
+        if (!(req.body.username && req.body.password)) {
+            return res.status(404).send({
+                err: -1,
+                msg: 'Bad Request'
+            });
+        }
+        db.collection('superuser').insertOne({
+            _id: req.body.username,
+            password: req.body.password
+        }, (err, result) => {
+            if (err) {
+                switch (err.code) {
+                    case 11000:
+                        return res.status(202).send({
+                            err: 0,
+                            msg: 'User Exist'
+                        });
+                    default:
+                        return res.status(500).send(err);
+                }
+            }
+            res.status(200).send('OK');
+        });
+    });
+
+    app.post('/post/v1/superuserLogin', (req, res) => {
+        if (!(req.body.username && req.body.password)) {
+            return res.status(404).send({
+                err: -1,
+                msg: 'Bad Request'
+            });
+        }
+        db.collection('superuser').findOne({
+            _id: req.body.username,
+            password: req.body.password
+        }).then((err, result) => {
+            if (err) {
+                return res.status(500).send(err)
+            }
+            if (result === null) {
+                res.status(200).send({
+                    isVertified: false
+                });
+            } else {
+                res.status(200).send({
+                    isVertified: true
+                });
+            }
+        })
+    });
+
+    app.post('/post/v1/superuserChangePassword',(req,res) => {
+        if(!(req.body.username && req.body.password)){
+            return res.status(404).send({
+                err: -1,
+                msg: 'Bad Request'
+            });
+        }
+        db.collection('superuser').updateOne({
+            _id: req.body.username
+        },{
+            $set: {
+                password: req.body.password
+            }
+        },(err, result) => {
+            if(err){
+                return res.status(500).send(err);
+            }
+            res.status(200).send('OK');
+        })
+    });
+
     app.post('/post/v1/addGenre', (req, res) => {
         if (!(req.body.genreID && req.body.image)) {
             return res.status(404).send({
