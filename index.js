@@ -29,14 +29,14 @@ MongoClient.connect('mongodb://127.0.0.1:27017/ReviewXServer', function (err, db
     console.log('Successful connect to database');
 
     app.post('/post/v1/addSuperuser', (req, res) => {
-        if (!(req.body.username && req.body.password)) {
+        if (!(req.body.firstName && req.body.lastName && req.body.email && req.body.password)) {
             return res.status(404).send({
                 err: -1,
                 msg: 'Bad Request'
             });
         }
         db.collection('superuser').insertOne({
-            _id: req.body.username,
+            _id: req.body.email,
             password: req.body.password
         }, (err, result) => {
             if (err) {
@@ -55,14 +55,14 @@ MongoClient.connect('mongodb://127.0.0.1:27017/ReviewXServer', function (err, db
     });
 
     app.post('/post/v1/superuserLogin', (req, res) => {
-        if (!(req.body.username && req.body.password)) {
+        if (!(req.body.email && req.body.password)) {
             return res.status(404).send({
                 err: -1,
                 msg: 'Bad Request'
             });
         }
         db.collection('superuser').findOne({
-            _id: req.body.username,
+            _id: req.body.email,
             password: req.body.password
         }).then((err, result) => {
             if (err) {
@@ -80,21 +80,21 @@ MongoClient.connect('mongodb://127.0.0.1:27017/ReviewXServer', function (err, db
         })
     });
 
-    app.post('/post/v1/superuserChangePassword',(req,res) => {
-        if(!(req.body.username && req.body.password)){
+    app.post('/post/v1/superuserChangePassword', (req, res) => {
+        if (!(req.body.email && req.body.password)) {
             return res.status(404).send({
                 err: -1,
                 msg: 'Bad Request'
             });
         }
         db.collection('superuser').updateOne({
-            _id: req.body.username
-        },{
+            _id: req.body.email
+        }, {
             $set: {
                 password: req.body.password
             }
-        },(err, result) => {
-            if(err){
+        }, (err, result) => {
+            if (err) {
                 return res.status(500).send(err);
             }
             res.status(200).send('OK');
