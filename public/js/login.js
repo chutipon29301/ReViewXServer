@@ -29,6 +29,10 @@ function getCookieDict() {
     return obj;
 }
 
+function hash(value) {
+    return CryptoJS.SHA1(value).toString();
+}
+
 var registerUser = () => {
     var registerFirstName = $('#registerFirstName');
     var registerLastName = $('#registerLastName');
@@ -66,16 +70,16 @@ var registerUser = () => {
     } else {
         registerConfirmPassword.removeClass('is-invalid').addClass('is-valid');
     }
-    if(isValid){
-        $.post('/post/v1/addSuperuser',{
+    if (isValid) {
+        $.post('/post/v1/addSuperuser', {
             firstName: registerFirstName.val(),
             lastName: registerLastName.val(),
             email: registerEmail.val(),
-            password: CryptoJS.SHA1(registerPassword.val()).toString()
+            password: hash(registerPassword.val())
         }).then(response => {
             window.location.href = '/index.html';
         });
-    }else{
+    } else {
         registerPassword.val('');
         registerConfirmPassword.val('');
     }
