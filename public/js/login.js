@@ -58,13 +58,13 @@ var registerUser = () => {
     } else {
         registerEmail.removeClass('is-invalid').addClass('is-valid');
     }
-    if (!registerPassword.val() && registerPassword.val() === '') {
+    if (!registerPassword.val() || registerPassword.val() === '') {
         isValid = false;
         registerPassword.removeClass('is-valid').addClass('is-invalid');
     } else {
         registerPassword.removeClass('is-invalid').addClass('is-valid');
     }
-    if (registerConfirmPassword.val() !== registerConfirmPassword.val() || registerConfirmPassword.val() === '') {
+    if (registerPassword.val() !== registerConfirmPassword.val() || registerConfirmPassword.val() === '') {
         isValid = false;
         registerConfirmPassword.removeClass('is-valid').addClass('is-invalid');
     } else {
@@ -82,5 +82,41 @@ var registerUser = () => {
     } else {
         registerPassword.val('');
         registerConfirmPassword.val('');
+    }
+}
+
+var resetPassword = () => {
+    var forgotPasswordEmail = $('#forgotPasswordEmail');
+    var forgotPasswordPassword = $('#forgotPasswordPassword');
+    var forgotPasswordConfirmPassword = $('forgotPasswordConfirmPassword');
+    var isValid = true;
+    if (!forgotPasswordEmail.val()) {
+        isValid = false;
+        forgotPasswordEmail.removeClass('is-valid').addClass('is-invalid');
+    } else {
+        forgotPasswordEmail.removeClass('is-invalid').addClass('is-valid');
+    }
+    if (!forgotPasswordPassword.val() || forgotPasswordPassword.val() === '') {
+        isValid = false;
+        forgotPasswordPassword.removeClass('is-valid').addClass('is-invalid');
+    } else {
+        forgotPasswordPassword.removeClass('is-invalid').addClass('is-valid');
+    }
+    if (forgotPasswordPassword.val() !== forgotPasswordConfirmPassword.val() || forgotPasswordConfirmPassword.val() === '') {
+        isValid = false;
+        forgotPasswordConfirmPassword.removeClass('is-valid').addClass('is-invalid');
+    } else {
+        forgotPasswordConfirmPassword.removeClass('is-invalid').addClass('is-valid');
+    }
+    if (isValid) {
+        $.post('/post/v1/superuserChangePassword', {
+            email: forgotPasswordEmail.val(),
+            password: hash(forgotPasswordPassword.val())
+        }).then(response => {
+            window.location.href = '/index.html';
+        });
+    } else {
+        forgotPasswordPassword.val('');
+        forgotPasswordConfirmPassword.val('');
     }
 }

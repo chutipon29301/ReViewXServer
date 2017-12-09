@@ -37,6 +37,8 @@ MongoClient.connect('mongodb://127.0.0.1:27017/ReviewXServer', function (err, db
         }
         db.collection('superuser').insertOne({
             _id: req.body.email,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
             password: req.body.password
         }, (err, result) => {
             if (err) {
@@ -50,6 +52,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/ReviewXServer', function (err, db
                         return res.status(500).send(err);
                 }
             }
+            console.log('User ' + req.body.firstName + ' has been registered');
             res.status(200).send('OK');
         });
     });
