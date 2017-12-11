@@ -120,3 +120,21 @@ var resetPassword = () => {
         forgotPasswordConfirmPassword.val('');
     }
 }
+
+var login = () => {
+    var email = $('#email');
+    var password = $('#password');
+    $.post('/post/v1/superuserLogin',{
+        email: email.val(),
+        password: hash(password.val())
+    }).then(response => {
+        if(response.isVertified){
+            window.location.href = '/home.html';
+        }else{
+            email.val('');
+            email.removeClass('is-valid').addClass('is-invalid');
+            password.val('');
+            password.removeClass('is-valid').addClass('is-invalid');
+        }
+    })
+}

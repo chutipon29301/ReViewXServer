@@ -87,12 +87,14 @@ body = {
 body = {
     genres: [
         {
-            genreID: 'ngieauu4g0b9a4gbu3ag34gaw',
-            genreName: 'action'
+            genreID: '24334',
+            genreName: 'action',
+            image: 'http://f34atfa4wtgw'
         },
         {
-            genreID: 'a3w4jiugbaehw4fwaiu4f4g4',
-            genreName: 'sci-fi'
+            genreID: '2324',
+            genreName: 'sci-fi',
+            image: 'http://f34atfa4wtgw'
         }
     ]
 }
