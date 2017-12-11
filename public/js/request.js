@@ -17,3 +17,11 @@ $('#deleteGenre').click(_ => {
         alert(err.responseText);
     });
 });
+
+$('#editGenre').click(_ => {
+    $.post('/post/v1/deleteGenre', $('#editGenreFrom').serialize()).then( data => {
+        alert(data);
+    }).catch(err => {
+        alert(err.responseText);
+    });
+});
