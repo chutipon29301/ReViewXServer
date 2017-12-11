@@ -33,18 +33,6 @@
                         <span class="nav-link-text">Dashboard</span>
                     </a>
                 </li>
-                <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="charts.html">
-            <i class="fa fa-fw fa-area-chart"></i>
-            <span class="nav-link-text">Charts</span>
-          </a>
-        </li> -->
-                <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="users.html">
-            <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">Users</span>
-          </a>
-        </li> -->
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
                         <i class="fa fa-fw fa-wrench"></i>
@@ -57,28 +45,11 @@
                         <li>
                             <a href="users.html">Users</a>
                         </li>
+                        <li>
+                            <a href="genresdb.html">Genres</a>
+                        </li>
                     </ul>
                 </li>
-                <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-file"></i>
-            <span class="nav-link-text">Example Pages</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseExamplePages">
-            <li>
-              <a href="login.html">Login Page</a>
-            </li>
-            <li>
-              <a href="register.html">Registration Page</a>
-            </li>
-            <li>
-              <a href="forgot-password.html">Forgot Password Page</a>
-            </li>
-            <li>
-              <a href="blank.html">Blank Page</a>
-            </li>
-          </ul>
-        </li> -->
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
                         <i class="fa fa-fw fa-sitemap"></i>
@@ -94,27 +65,6 @@
                         <li>
                             <a href="userReq.html">User</a>
                         </li>
-
-                        <!-- <li>
-              <a href="#">Second Level Item</a>
-            </li>
-            <li>
-              <a href="#">Second Level Item</a>
-            </li> -->
-                        <!-- <li>
-              <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Third Level</a>
-              <ul class="sidenav-third-level collapse" id="collapseMulti2">
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-              </ul>
-            </li> -->
                     </ul>
                 </li>
             </ul>
@@ -229,31 +179,31 @@
                     </div>
                     <!-- Edit Genre -->
                     <div class="row">
-                            <div class="col-lg-8">
-                                <div class="card mb-3">
-                                    <div class="card-header">Edit Genre</div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <form id="editGenreFrom">
-                                                <div class="form-group row">
-                                                    <label for="genreID" class="col-sm-4 col-form-label">genreID</label>
-                                                    <div class="col-sm-8">
-                                                        <input type="text" class="form-control" id="genreID" placeholder="genreID" name="genreID">
-                                                    </div>
+                        <div class="col-lg-8">
+                            <div class="card mb-3">
+                                <div class="card-header">Edit Genre</div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <form id="editGenreFrom">
+                                            <div class="form-group row">
+                                                <label for="genreID" class="col-sm-4 col-form-label">genreID</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="genreID" placeholder="genreID" name="genreID">
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label for="image" class="col-sm-4 col-form-label">image</label>
-                                                    <div class="col-sm-8">
-                                                        <input type="text" class="form-control" id="image" placeholder="http://..." name="image">
-                                                    </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="image" class="col-sm-4 col-form-label">image</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="image" placeholder="http://..." name="image">
                                                 </div>
-                                                <button class="btn btn-primary" id="editGenre">Submit</button>
-                                            </form>
-                                        </div>
+                                            </div>
+                                            <button class="btn btn-primary" id="editGenre">Submit</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
             <!-- /.container-fluid-->
