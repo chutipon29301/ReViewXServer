@@ -17,7 +17,15 @@ app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
-app.use(express.static('public'))
+app.use(express.static('public'));
+app.set('view engine', 'pug');
+
+app.get('/test', function (req, res) {
+    res.render('htmlTemplate', {});
+});
+app.get('/genre', function (req, res) {
+    res.render('genre', {});
+});
 
 
 MongoClient.connect('mongodb://127.0.0.1:27017/ReviewXServer', function (err, db) {
@@ -128,7 +136,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/ReviewXServer', function (err, db
                     }
                     return res.status(200).send('OK');
                 });
-            }else{
+            } else {
                 return res.status(400).send({
                     err: -1,
                     msg: 'Bad Request'
