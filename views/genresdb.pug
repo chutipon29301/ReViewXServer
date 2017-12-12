@@ -2,7 +2,7 @@ extends htmlTemplate.pug
 block breadcrumb
     li.breadcrumb-item.active GenreDB
 block content
-    .container
+    .container.col-12
         table.table.table-hover
             thead
                 tr
@@ -10,6 +10,7 @@ block content
                     th _id
                     th genreName
                     th imageLink
+                    th preview
             tbody
                 each genre, index in genres
                     tr
@@ -17,3 +18,5 @@ block content
                         td= genre.genreID
                         td= genre.name
                         td= genre.image
+                        td
+                            img(src=genre.image height="100" width="100")
