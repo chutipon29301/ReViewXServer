@@ -26,7 +26,9 @@ app.get('/test', function (req, res) {
 app.get('/genre', function (req, res) {
     res.render('genre', {});
 });
-
+app.get('/user', function (req, res) {
+    res.render('user', {});
+});
 app.get('/home', function (req, res) {
     res.render('home', {});
 });
