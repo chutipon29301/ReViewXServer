@@ -1,0 +1,7 @@
+extends htmlTemplate.pug
+block breadcrumb
+    li.breadcrumb-item.active GenreDB
+block content
+    .container
+        each genre in #{genres}
+            
