@@ -3,5 +3,17 @@ block breadcrumb
     li.breadcrumb-item.active GenreDB
 block content
     .container
-        each genre in #{genres}
-            
+        table.table.table-hover
+            thead
+                tr
+                    th No.
+                    th _id
+                    th genreName
+                    th imageLink
+            tbody
+                each genre, index in genres
+                    tr
+                        td= index+1
+                        td= genre.genreID
+                        td= genre.name
+                        td= genre.image
