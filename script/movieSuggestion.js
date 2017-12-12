@@ -22,16 +22,30 @@ module.exports = function (app, db, request) {
             })).then(data => {
                 for (let i = 0; i < response.body.results.length; i++) {
                     for (let j = 0; j < response.body.results[i].genre_ids.length; j++) {
-                        if(response.body.results[i].genreName === undefined){
+                        if (response.body.results[i].genreName === undefined) {
                             response.body.results[i].genreName = [];
                         }
-                        if(data[i][j] !== null){
+                        if (data[i][j] !== null) {
                             response.body.results[i].genreName.push(data[i][j].name);
                         }
                     }
                 }
                 return res.status(200).send(response.body.results);
             });
+        });
+    });
+
+    app.post('/post/v1/getMovieInfo', (req, res) => {
+        if (!req.body.movieID) {
+            return res.status(400).send({
+                err: -1,
+                msg: 'Bad Request'
+            });
+        }
+        request('https://api.themoviedb.org/3/movie/' + req.body.movieID + '?api_key=af56062ca42de4534123ddaaf8a73a21&language=en-US', {
+            json: true
+        }, (error, response, body) => {
+            return res.status(200).send(response.body);
         });
     });
 }
