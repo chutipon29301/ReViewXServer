@@ -129,7 +129,7 @@ var login = () => {
         password: hash(password.val())
     }).then(response => {
         if(response.isVertified){
-            window.location.href = '/home.html';
+            window.location.href = '/home';
         }else{
             email.val('');
             email.removeClass('is-valid').addClass('is-invalid');

@@ -17,13 +17,13 @@ html(lang='en')
     body#page-top.fixed-nav.sticky-footer.bg-dark
         // Navigation
         nav#mainNav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
-            a.navbar-brand(href='home.html') ReViewX
+            a.navbar-brand(href='home') ReViewX
             button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarResponsive', aria-controls='navbarResponsive', aria-expanded='false', aria-label='Toggle navigation')
                 span.navbar-toggler-icon
             #navbarResponsive.collapse.navbar-collapse
                 ul#exampleAccordion.navbar-nav.navbar-sidenav
                     li.nav-item(data-toggle='tooltip', data-placement='right', title='Dashboard')
-                        a.nav-link(href='home.html')
+                        a.nav-link(href='home')
                             i.fa.fa-fw.fa-dashboard
                             span.nav-link-text Dashboard
                     //
@@ -143,7 +143,7 @@ html(lang='en')
                 // Breadcrumbs
                 ol.breadcrumb
                     li.breadcrumb-item
-                        a(href='home.html') Dashboard
+                        a(href='home') Dashboard
                     block breadcrumb
                     // <li class="breadcrumb-item active">Blank Page</li>
                 .row
@@ -169,14 +169,14 @@ html(lang='en')
                         .modal-body Select "Logout" below if you are ready to end your current session.
                         .modal-footer
                             button.btn.btn-secondary(type='button', data-dismiss='modal') Cancel
-                            a.btn.btn-primary(href='login.html') Logout
+                            a.btn.btn-primary(href='index.html') Logout
             // Bootstrap core JavaScript
+            script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+            script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js')
+            script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js')
+            // Core plugin JavaScript
+            script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js')
+            // Custom scripts for all pages
+            script(src='js/sb-admin.min.js')
             block script
-                script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
-                script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js')
-                script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js')
-                // Core plugin JavaScript
-                script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js')
-                // Custom scripts for all pages
-                script(src='js/sb-admin.min.js')
 
