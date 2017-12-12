@@ -26,9 +26,7 @@ app.get('/test', function (req, res) {
 app.get('/genre', function (req, res) {
     res.render('genre', {});
 });
-app.get('/genredb', function (req, res) {
-    res.render('genredb', {});
-});
+
 app.get('/home', function (req, res) {
     res.render('home', {});
 });
@@ -196,6 +194,18 @@ MongoClient.connect('mongodb://127.0.0.1:27017/ReviewXServer', function (err, db
                 delete result[i]._id;
             }
             res.status(200).send({
+                genres: result
+            });
+        });
+    });
+
+    app.get('/genresdb', function (req, res) {
+        db.collection('genre').find({}).toArray().then(result => {
+            for (let i = 0; i < result.length; i++) {
+                result[i].genreID = result[i]._id;
+                delete result[i]._id;
+            }
+            res.render('genresdb', {
                 genres: result
             });
         });
