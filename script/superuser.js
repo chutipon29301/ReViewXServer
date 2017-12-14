@@ -2,7 +2,7 @@ module.exports = function (app, db) {
     app.post('/post/v1/addSuperuser', (req, res) => {
         if (!(req.body.firstName && req.body.lastName && req.body.email && req.body.password)) {
             return res.status(400).send({
-                err: -1,
+                err: 0,
                 msg: 'Bad Request'
             });
         }
@@ -16,22 +16,28 @@ module.exports = function (app, db) {
                 switch (err.code) {
                     case 11000:
                         return res.status(202).send({
-                            err: 0,
+                            err: 1,
                             msg: 'User Exist'
                         });
                     default:
-                        return res.status(500).send(err);
+                        return res.status(500).send({
+                            err: err.code,
+                            errInfo: err
+                        });
                 }
             }
             console.log('User ' + req.body.firstName + ' has been registered');
-            res.status(200).send('OK');
+            res.status(200).send({
+                err: -1,
+                msg: 'OK'
+            });
         });
     });
 
     app.post('/post/v1/superuserLogin', (req, res) => {
         if (!(req.body.email && req.body.password)) {
             return res.status(400).send({
-                err: -1,
+                err: 0,
                 msg: 'Bad Request'
             });
         }
@@ -40,7 +46,10 @@ module.exports = function (app, db) {
             password: req.body.password
         }).then((result, err) => {
             if (err) {
-                return res.status(500).send(err)
+                return res.status(500).send({
+                    err: err.code,
+                    errInfo: err
+                })
             }
             if (result) {
                 res.status(200).send({
@@ -57,7 +66,7 @@ module.exports = function (app, db) {
     app.post('/post/v1/superuserChangePassword', (req, res) => {
         if (!(req.body.email && req.body.password)) {
             return res.status(400).send({
-                err: -1,
+                err: 0,
                 msg: 'Bad Request'
             });
         }
@@ -69,9 +78,15 @@ module.exports = function (app, db) {
             }
         }, (err, result) => {
             if (err) {
-                return res.status(500).send(err);
+                return res.status(500).send({
+                    err: err.code,
+                    errInfo: err
+                });
             }
-            res.status(200).send('OK');
+            res.status(200).send({
+                err: -1,
+                msg: 'OK'
+            });
         })
     });
 }

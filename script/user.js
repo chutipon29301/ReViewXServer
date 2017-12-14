@@ -2,7 +2,7 @@ module.exports = function (app, db) {
     app.post('/post/v1/addUser', (req, res) => {
         if (!(req.body.facebookID && req.body.preference)) {
             return res.status(400).send({
-                err: -1,
+                err: 0,
                 msg: 'Bad Request'
             });
         }
@@ -14,21 +14,24 @@ module.exports = function (app, db) {
                 switch (err.code) {
                     case 11000:
                         return res.status(200).send({
-                            err: 0,
+                            err: 1,
                             msg: 'User Exist'
                         });
                     default:
                         return res.status(500).send(err);
                 }
             }
-            res.status(200).send('OK');
+            res.status(200).send({
+                err: -1,
+                msg: 'OK'
+            });
         });
     });
 
     app.post('/post/v1/removeUser', (req, res) => {
         if (!req.body.userID) {
             return res.status(400).send({
-                err: -1,
+                err: 0,
                 msg: 'Bad Request'
             });
         }
@@ -36,9 +39,15 @@ module.exports = function (app, db) {
             _id: ObjectID(req.body.userID)
         }, (err, result) => {
             if (err) {
-                return res.status(500).send(err);
+                return res.status(500).send({
+                    err: err.code,
+                    errInfo: err
+                });
             }
-            res.status(200).send('OK');
+            res.status(200).send({
+                err: -1,
+                msg: 'OK'
+            });
         });
     });
 

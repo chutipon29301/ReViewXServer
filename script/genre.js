@@ -15,7 +15,7 @@ module.exports = function (app, db, request) {
     app.post('/post/v1/addGenre', (req, res) => {
         if (!(req.body.genreID && req.body.image)) {
             return res.status(400).send({
-                err: -1,
+                err: 0,
                 msg: 'Bad Request'
             });
         }
@@ -38,7 +38,7 @@ module.exports = function (app, db, request) {
                 });
             } else {
                 return res.status(400).send({
-                    err: -1,
+                    err: 0,
                     msg: 'Bad Request'
                 });
             }
@@ -48,7 +48,7 @@ module.exports = function (app, db, request) {
     app.post('/post/v1/deleteGenre', (req, res) => {
         if (!req.body.genreID) {
             return res.status(400).send({
-                err: -1,
+                err: 0,
                 msg: 'Bad Request'
             });
         }
@@ -58,14 +58,17 @@ module.exports = function (app, db, request) {
             if (err) {
                 return res.status(500).send(err);
             }
-            res.status(200).send('OK');
+            res.status(200).send({
+                err: -1,
+                msg: 'OK'
+            });
         });
     });
 
     app.post('/post/v1/editGenre', (req, res) => {
         if (!(req.body.genreID && req.body.image)) {
             return res.status(400).send({
-                err: -1,
+                err: 0,
                 msg: 'Bad Request'
             });
         }
@@ -77,9 +80,15 @@ module.exports = function (app, db, request) {
             }
         }, (err, result) => {
             if (err) {
-                return res.status(500).send(err);
+                return res.status(500).send({
+                    err: err.code,
+                    errInfo: err
+                });
             }
-            res.status(200).send('OK');
+            res.status(200).send({
+                err: -1,
+                msg: 'OK'
+            });
         });
     });
 

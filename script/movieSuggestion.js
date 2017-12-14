@@ -2,7 +2,7 @@ module.exports = function (app, db, request) {
     app.post('/post/v1/listMovieSuggestion', (req, res) => {
         if (!req.body.userID) {
             return res.status(400).send({
-                err: -1,
+                err: 0,
                 msg: 'Bad Request'
             });
         }
@@ -10,7 +10,10 @@ module.exports = function (app, db, request) {
             json: true
         }, (error, response, body) => {
             if (error) {
-                return res.status(500).send(error);
+                return res.status(500).send({
+                    err: error.code,
+                    errInfo: error
+                });
             }
 
             Promise.all(response.body.results.map(movie => {
@@ -38,7 +41,7 @@ module.exports = function (app, db, request) {
     app.post('/post/v1/getMovieInfo', (req, res) => {
         if (!req.body.movieID) {
             return res.status(400).send({
-                err: -1,
+                err: 0,
                 msg: 'Bad Request'
             });
         }
