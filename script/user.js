@@ -1,4 +1,27 @@
 module.exports = function (app, db) {
+
+    app.post('/post/v1/checkExistUser', (req, res) => {
+        if (!req.body.facebookID) {
+            return res.status(200).send({
+                err: 0,
+                msg: 'Bad Request'
+            });
+        }
+        db.collection('user').findOne({
+            _id: parseInt(req.body.facebookID)
+        }).then(result => {
+            if (result === null) {
+                return res.status(200).send({
+                    exist: false
+                });
+            } else {
+                return res.status(200).send({
+                    exist: true
+                });
+            }
+        });
+    });
+
     app.post('/post/v1/addUser', (req, res) => {
         if (!(req.body.facebookID && req.body.preference)) {
             return res.status(400).send({
