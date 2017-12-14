@@ -100,7 +100,7 @@ body = {
 }
 ```
 
-`post/registerUser`
+`post/addUser`
 
 - request body
 ```javascript
