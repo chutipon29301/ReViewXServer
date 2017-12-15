@@ -8,7 +8,7 @@ module.exports = function (app, db) {
             });
         }
         db.collection('user').findOne({
-            _id: parseInt(req.body.facebookID)
+            _id: req.body.facebookID
         }).then(result => {
             if (result === null) {
                 return res.status(200).send({

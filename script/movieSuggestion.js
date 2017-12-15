@@ -32,6 +32,14 @@ module.exports = function (app, db, request) {
                             response.body.results[i].genreName.push(data[i][j].name);
                         }
                     }
+                    delete response.body.results[i].vote_count;
+                    delete response.body.results[i].popularity;
+                    delete response.body.results[i].backdrop_path;
+                    delete response.body.results[i].original_language;
+                    delete response.body.results[i].original_title;
+                    delete response.body.results[i].adult;
+                    delete response.body.results[i].overview;
+                    delete response.body.results[i].genre_ids;
                 }
                 return res.status(200).send(response.body.results);
             });
