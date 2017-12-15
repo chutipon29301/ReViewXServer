@@ -56,6 +56,19 @@ module.exports = function (app, db, request) {
         request('https://api.themoviedb.org/3/movie/' + req.body.movieID + '?api_key=af56062ca42de4534123ddaaf8a73a21&language=en-US', {
             json: true
         }, (error, response, body) => {
+            delete response.body.adult;
+            delete response.body.backdrop_path;
+            delete response.body.belongs_to_collection;
+            delete response.body.budget;
+            delete response.body.homepage;
+            delete response.body.imdb_id;
+            delete response.body.original_language;
+            delete response.body.popularity;
+            delete response.body.production_companies;
+            delete response.body.revenue;
+            delete response.body.spoken_languages;
+            delete response.body.status;
+            delete response.body.tagline;
             return res.status(200).send(response.body);
         });
     });
