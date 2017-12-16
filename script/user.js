@@ -1,5 +1,4 @@
 module.exports = function (app, db) {
-
     app.post('/post/v1/checkExistUser', (req, res) => {
         if (!req.body.facebookID) {
             return res.status(200).send({

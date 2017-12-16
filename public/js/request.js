@@ -25,3 +25,11 @@ $('#editGenre').click(_ => {
         alert(err.responseText);
     });
 });
+
+$('#deleteReview').click(_ => {
+    $.post('/post/v1/deleteReview', $('#deleteReviewFrom').serialize()).then( data => {
+        alert(data);
+    }).catch(err => {
+        alert(err.responseText);
+    });
+});
