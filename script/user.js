@@ -59,7 +59,7 @@ module.exports = function (app, db) {
             });
         }
         db.collection('user').deleteOne({
-            _id: ObjectID(req.body.userID)
+            _id: req.body.userID
         }, (err, result) => {
             if (err) {
                 return res.status(500).send({

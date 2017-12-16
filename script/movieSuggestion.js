@@ -69,6 +69,7 @@ module.exports = function (app, db, request) {
             delete response.body.spoken_languages;
             delete response.body.status;
             delete response.body.tagline;
+            delete response.body.vote_count;
             return res.status(200).send(response.body);
         });
     });
