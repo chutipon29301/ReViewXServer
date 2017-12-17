@@ -8,7 +8,7 @@ module.exports = function (app, db, ObjectID) {
         }
         db.collection('review').insertOne({
             facebookID: req.body.facebookID,
-            movieID: req.body.movieID,
+            movieID: parseInt(req.body.movieID),
             threeWords: req.body.threeWords,
             review: req.body.review,
             score: parseInt(req.body.score)
@@ -39,6 +39,22 @@ module.exports = function (app, db, ObjectID) {
             res.status(200).send({
                 err: -1,
                 msg: 'OK'
+            });
+        });
+    });
+
+    app.post('/post/v1/listReviewForMovie', (req, res) => {
+        if (!req.body.movieID) {
+            return res.status(400).send({
+                err: 0,
+                msg: 'Bad Request'
+            });
+        }
+        db.collection(review).find({
+            movieID: parseInt(req.body.movieID)
+        }).toArray().then(result => {
+            res.status(200).send({
+                reviews: result
             });
         });
     });
