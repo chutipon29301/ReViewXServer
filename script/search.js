@@ -7,8 +7,10 @@ module.exports = function (app, db, request) {
                 msg: 'Bad Request'
             });
         }
-        search(req.body.key,1,2017,results => {
-            res.status(200).send(results);
+        search(req.body.key, 1, 2017, results => {
+            res.status(200).send({
+                searches: results
+            });
         });
     });
 
@@ -22,7 +24,7 @@ module.exports = function (app, db, request) {
                     errInfo: error
                 });
             }
-            for(let i = 0; i < response.body.results.length; i++){
+            for (let i = 0; i < response.body.results.length; i++) {
                 response.body.results[i].poster_path = 'https://image.tmdb.org/t/p/w500' + response.body.results[i].poster_path;
                 delete response.body.results[i].vote_count;
                 delete response.body.results[i].video;
