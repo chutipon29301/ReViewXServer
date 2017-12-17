@@ -43,7 +43,9 @@ module.exports = function (app, db, ObjectID) {
                 result[i].locationID = result[i]._id;
                 delete result[i]._id;
             }
-            res.status(200).send(result);
+            res.status(200).send({
+                locations: result
+            });
         });
     });
 
