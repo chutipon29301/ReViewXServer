@@ -47,7 +47,7 @@ module.exports = function (app, db, ObjectID) {
         });
     });
 
-    app.post('/psot/v1/deleteLocation', (req, res) => {
+    app.post('/post/v1/deleteLocation', (req, res) => {
         if(!req.body.locationID){
             return res.status(400).send({
                 err: 0,
