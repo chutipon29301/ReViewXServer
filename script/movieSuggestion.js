@@ -75,6 +75,7 @@ module.exports = function (app, db, request) {
                             response.body.results[i].genreName.push(data[i][j].name);
                         }
                     }
+                    response.body.results[i].poster_path = 'https://image.tmdb.org/t/p/w500' + response.body.results[i].poster_path;
                     delete response.body.results[i].vote_count;
                     delete response.body.results[i].video;
                     delete response.body.results[i].popularity;

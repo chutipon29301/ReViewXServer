@@ -20,7 +20,8 @@ block content
                         td= movie.id
                         td= movie.vote_average
                         td= movie.title
-                        td= movie.poster_path
+                        td
+                            img(src=movie.poster_path height="100" width="100")
                         td= movie.release_date
                         td
                             ul
