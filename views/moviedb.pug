@@ -1,0 +1,28 @@
+extends htmlTemplate.pug
+block breadcrumb
+    li.breadcrumb-item.active MovieDB
+block content
+    .container.col-12
+        table.table.table-hover.table-responsive
+            thead
+                tr
+                    th No.
+                    th id
+                    th vote_avarage
+                    th title
+                    th poster_path
+                    th release_date
+                    th genre_name
+            tbody
+                each movie, index in movies
+                    tr
+                        td= index+1
+                        td= movie.id
+                        td= movie.vote_average
+                        td= movie.title
+                        td= movie.poster_path
+                        td= movie.release_date
+                        td
+                            ul
+                            each genre in movie.genreName
+                                li= genre
