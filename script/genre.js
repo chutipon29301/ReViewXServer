@@ -1,6 +1,6 @@
 module.exports = function (app, db, request) {
 
-    app.get('/genresdb', function (req, res) {
+    app.get('/genresdb', (req, res) => {
         db.collection('genre').find({}).toArray().then(result => {
             for (let i = 0; i < result.length; i++) {
                 result[i].genreID = result[i]._id;

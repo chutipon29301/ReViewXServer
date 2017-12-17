@@ -1,4 +1,17 @@
 module.exports = function (app, db) {
+
+    app.get('/usersdb',(req,res) => {
+        db.collection('user').find({}).toArray().then(result => {
+            for (let i = 0; i < result.length; i++) {
+                result[i].userID = result[i]._id;
+                delete result[i]._id;
+            }
+            res.render('userdb',{
+                users: result
+            });
+        });
+    });
+
     app.post('/post/v1/checkExistUser', (req, res) => {
         if (!req.body.facebookID) {
             return res.status(400).send({

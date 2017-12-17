@@ -1,0 +1,25 @@
+extends htmlTemplate.pug
+block breadcrumb
+    li.breadcrumb-item.active UserDB
+block content
+    .container.col-12
+        table.table.table-hover
+            thead
+                tr
+                    th No.
+                    th _id
+                    th like
+                    th dislike
+            tbody
+                each user, index in users
+                    tr
+                        td= index+1
+                        td= user.userID
+                        td
+                            ul
+                            each like in user.preference.like
+                                li= like
+                        td
+                            ul
+                            each dislike in user.preference.dislike
+                                li= dislike
