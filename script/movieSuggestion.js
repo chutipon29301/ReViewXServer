@@ -16,7 +16,9 @@ module.exports = function (app, db, request) {
             });
         }
         getmovielist(1, results => {
-            return res.status(200).send(results);
+            return res.status(200).send({
+                movieSuggestions: results
+            });
         });
     });
 
