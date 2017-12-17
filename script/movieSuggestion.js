@@ -1,7 +1,7 @@
 module.exports = function (app, db, request) {
 
     app.get('/moviedb', (req, res) => {
-        getmovielist(1,results => {
+        getmovielist(1, results => {
             res.render('moviedb', {
                 movies: results
             });
@@ -19,6 +19,18 @@ module.exports = function (app, db, request) {
             return res.status(200).send({
                 movieSuggestions: results
             });
+        });
+    });
+
+    app.post('/post/v1/getRandomMovie', (req, res) => {
+        if (!req.body.userID) {
+            return res.status(400).send({
+                err: 0,
+                msg: 'Bad Request'
+            });
+        }
+        getmovielist(1, results => {
+            return res.status(200).send(results[getRandomInt(0,results.length - 1)]);
         });
     });
 
@@ -91,5 +103,11 @@ module.exports = function (app, db, request) {
                 callback(response.body.results);
             });
         });
+    }
+
+    const getRandomInt = (min, max) => {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
     }
 }

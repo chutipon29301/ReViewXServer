@@ -19,6 +19,7 @@
   "homepage": "https://github.com/chutipon29301/ReViewXServer#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "deeplearn": "^0.3.14",
     "express": "^4.16.2",
     "mongodb": "^2.2.33",
     "pug": "^2.0.0-rc.4",
