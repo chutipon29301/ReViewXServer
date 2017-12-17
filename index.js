@@ -54,4 +54,5 @@ MongoClient.connect('mongodb://127.0.0.1:27017/ReviewXServer', function (err, db
     require('./script/movieSuggestion.js')(app, db, request);
     require('./script/review.js')(app, db, ObjectID);
     require('./script/location.js')(app, db, ObjectID);
+    require('./script/search.js')(app, db, request);
 });
