@@ -1,0 +1,21 @@
+extends htmlTemplate.pug
+block breadcrumb
+    li.breadcrumb-item.active LocationDB
+block content
+    .container.col-12
+        table.table.table-hover
+            thead
+                tr
+                    th No.
+                    th _id
+                    th name
+                    th latitude
+                    th longitude
+            tbody
+                each location, index in locations
+                    tr
+                        td= index+1
+                        td= location.locationID
+                        td= location.name
+                        td= location.latitude
+                        td= location.longitude

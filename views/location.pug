@@ -2,7 +2,7 @@ extends htmlTemplate.pug
 block breadcrumb
     li.breadcrumb-item.active Location
 block content
-    +requestBox('Add Location', 'addLocationFrom', 'addLocation', 'latitude', 'longitude')
+    +requestBox('Add Location', 'addLocationForm', 'addLocation', 'name', 'latitude', 'longitude')
     +requestBox('Delete Loation', 'deleteLocationForm', 'deleteLocation', 'locationID')
 block script
     script(src='js/request.js')

@@ -35,17 +35,22 @@ $('#deleteReview').click(_ => {
 });
 
 $('#addLocation').click(_ => {
+    console.log($('#addLocationForm').serialize());
     $.post('/post/v1/addLocation', $('#addLocationForm').serialize()).then( data => {
         alert(data);
+        console.log(data);
     }).catch(err => {
+        console.log(err);
         alert(err.responseText);
     });
 });
 
 $('#deleteLocation').click(_ => {
     $.post('/post/v1/deleteLocation', $('#deleteLocationForm').serialize()).then( data => {
+        console.log(data);
         alert(data);
     }).catch(err => {
+        console.log(err);
         alert(err.responseText);
     });
 });
