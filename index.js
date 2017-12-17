@@ -35,6 +35,9 @@ app.get('/home', function (req, res) {
 app.get('/review', function (req, res) {
     res.render('review', {});
 });
+app.get('/location', function (req, res) {
+    res.render('location', {});
+});
 
 
 MongoClient.connect('mongodb://127.0.0.1:27017/ReviewXServer', function (err, db) {

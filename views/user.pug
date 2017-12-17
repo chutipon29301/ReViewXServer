@@ -2,7 +2,7 @@ extends htmlTemplate.pug
 block breadcrumb
     li.breadcrumb-item.active User
 block content
-    +requestBox('Remove User', 'removeUserFrom', 'removeUser', 'userID')
+    +requestBox('Remove User', 'removeUserForm', 'removeUser', 'userID')
 block script
     script(src='js/request.js')
 

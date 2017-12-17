@@ -1,12 +1,9 @@
 extends htmlTemplate.pug
 block breadcrumb
-    li.breadcrumb-item.active Genre
+    li.breadcrumb-item.active Location
 block content
-    .container
-        +requestBox('Add Genre', 'addGenreForm', 'addGenre', 'genreID', 'image')
-        +requestBox('Delete Genre', 'deleteGenreForm', 'deleteGenre', 'genreID')
-        +requestBox('Edit Genre', 'editGenreForm', 'editGenre', 'genreID', 'image')
-
+    +requestBox('Add Location', 'addLocationFrom', 'addLocation', 'latitude', 'longitude')
+    +requestBox('Delete Loation', 'deleteLocationForm', 'deleteLocation', 'locationID')
 block script
     script(src='js/request.js')
 

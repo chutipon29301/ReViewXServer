@@ -3,7 +3,7 @@ $('form').submit(function(e) {
 });
 
 $('#addGenre').click(_ => {
-    $.post('/post/v1/addGenre', $('#addGenreFrom').serialize()).then( data => {
+    $.post('/post/v1/addGenre', $('#addGenreForm').serialize()).then( data => {
         alert(data);
     }).catch(err => {
         alert(err.responseText);
@@ -11,7 +11,7 @@ $('#addGenre').click(_ => {
 });
 
 $('#deleteGenre').click(_ => {
-    $.post('/post/v1/deleteGenre', $('#deleteGenreFrom').serialize()).then( data => {
+    $.post('/post/v1/deleteGenre', $('#deleteGenreForm').serialize()).then( data => {
         alert(data);
     }).catch(err => {
         alert(err.responseText);
@@ -19,7 +19,7 @@ $('#deleteGenre').click(_ => {
 });
 
 $('#editGenre').click(_ => {
-    $.post('/post/v1/deleteGenre', $('#editGenreFrom').serialize()).then( data => {
+    $.post('/post/v1/deleteGenre', $('#editGenreForm').serialize()).then( data => {
         alert(data);
     }).catch(err => {
         alert(err.responseText);
@@ -27,7 +27,23 @@ $('#editGenre').click(_ => {
 });
 
 $('#deleteReview').click(_ => {
-    $.post('/post/v1/deleteReview', $('#deleteReviewFrom').serialize()).then( data => {
+    $.post('/post/v1/deleteReview', $('#deleteReviewForm').serialize()).then( data => {
+        alert(data);
+    }).catch(err => {
+        alert(err.responseText);
+    });
+});
+
+$('#addLocation').click(_ => {
+    $.post('/post/v1/addLocation', $('#addLocationForm').serialize()).then( data => {
+        alert(data);
+    }).catch(err => {
+        alert(err.responseText);
+    });
+});
+
+$('#deleteLocation').click(_ => {
+    $.post('/post/v1/deleteLocation', $('#deleteLocationForm').serialize()).then( data => {
         alert(data);
     }).catch(err => {
         alert(err.responseText);
