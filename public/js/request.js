@@ -54,3 +54,13 @@ $('#deleteLocation').click(_ => {
         alert(err.responseText);
     });
 });
+
+$('#deleteReadLater').click(_ => {
+    $.post('/post/v1/deleteReadLater', $('#deleteReadLaterForm').serialize()).then( data => {
+        console.log(data);
+        alert(data);
+    }).catch(err => {
+        console.log(err);
+        alert(err.responseText);
+    });
+});

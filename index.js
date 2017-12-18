@@ -38,6 +38,9 @@ app.get('/review', function (req, res) {
 app.get('/location', function (req, res) {
     res.render('location', {});
 });
+app.get('/readLater', function (req, res) {
+    res.render('readLater', {});
+});
 
 
 MongoClient.connect('mongodb://127.0.0.1:27017/ReviewXServer', function (err, db) {
@@ -55,4 +58,5 @@ MongoClient.connect('mongodb://127.0.0.1:27017/ReviewXServer', function (err, db
     require('./script/review.js')(app, db, ObjectID);
     require('./script/location.js')(app, db, ObjectID);
     require('./script/search.js')(app, db, request);
+    require('./script/readLater.js')(app, db, ObjectID);
 });

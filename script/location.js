@@ -58,7 +58,7 @@ module.exports = function (app, db, ObjectID) {
         }
         db.collection('location').deleteOne({
             _id: ObjectID(req.body.locationID)
-        },(err, resul) => {
+        },(err, result) => {
             if (err) {
                 return res.status(500).send({
                     err: err.code,

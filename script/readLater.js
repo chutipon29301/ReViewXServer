@@ -1,0 +1,77 @@
+module.exports = function (app, db, ObjectID) {
+
+    app.get('/readLaterdb',(req,res) => {
+        db.collection('readLater').find({}).toArray().then(result => {
+            res.render('readLaterdb', {
+                readLaters: result
+            });
+        });
+    });
+
+    app.post('/post/v1/addReadLater', (req, res) => {
+        if (!(req.body.userID && req.body.reviewID)) {
+            return res.status(400).send({
+                err: 0,
+                msg: 'Bad Request'
+            });
+        }
+        db.collection('readLater').insertOne({
+            userID: req.body.userID,
+            reviewID: req.body.reviewID
+        }, (err, result) => {
+            if (err) {
+                return res.status(500).send({
+                    err: err.code,
+                    errInfo: err
+                });
+            }
+            res.status(200).send({
+                err: -1,
+                msg: 'OK'
+            });
+        });
+    });
+
+    app.post('/post/v1/deleteReadLater', (req, res) => {
+        if (!req.body.readLaterID) {
+            return res.status(400).send({
+                err: 0,
+                msg: 'Bad Request'
+            });
+        }
+        db.collection('readLater').deleteOne({
+            _id: ObjectID(req.body.readLaterID)
+        }, (err, result) => {
+            if (err) {
+                return res.status(500).send({
+                    err: err.code,
+                    errInfo: err
+                });
+            }
+            res.status(200).send({
+                err: -1,
+                msg: 'OK'
+            });
+        })
+    });
+
+    app.post('/post/v1/listReadLater', (req, res) => {
+        if (!req.body.userID) {
+            return res.status(400).send({
+                err: 0,
+                msg: 'Bad Request'
+            });
+        }
+        db.collection('readLater').find({
+            userID: req.body.userID
+        }).toArray().then(result => {
+            for (let i = 0; i < result.length; i++) {
+                result[i].readLaterID = result[i]._id;
+                delete result[i]._id;
+            }
+            res.status(200).send({
+                readLaters: result
+            });
+        });
+    });
+}
