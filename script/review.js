@@ -1,4 +1,13 @@
 module.exports = function (app, db, ObjectID) {
+
+    app.get('/reviewdb', (req,res) => {
+        db.collection('review').find({}).toArray().then(result => {
+            res.render('reviewdb', {
+                reviews: result
+            });
+        });
+    });
+
     app.post('/post/v1/addReview', (req, res) => {
         if (!(req.body.facebookID && req.body.movieID && req.body.threeWords && req.body.review && req.body.score)) {
             return res.status(400).send({

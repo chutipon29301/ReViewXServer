@@ -1,0 +1,28 @@
+extends htmlTemplate.pug
+block breadcrumb
+    li.breadcrumb-item.active ReviewDB
+block content
+    .container.col-12
+        table.table.table-hover.table-responsive
+            thead
+                tr
+                    th No.
+                    th _id
+                    th facebookID
+                    th movieID
+                    th threeWords
+                    th review
+                    th score
+            tbody
+                each review, index in reviews
+                    tr
+                        td= index+1
+                        td= review._id
+                        td= review.facebookID
+                        td= review.movieID
+                        td
+                            ul
+                            each word in review.threeWords
+                                li= word
+                        td= review.review
+                        td= review.score
