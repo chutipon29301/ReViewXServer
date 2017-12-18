@@ -59,9 +59,13 @@ module.exports = function (app, db, ObjectID) {
                 msg: 'Bad Request'
             });
         }
-        db.collection(review).find({
+        db.collection('review').find({
             movieID: parseInt(req.body.movieID)
         }).toArray().then(result => {
+            for(let i = 0; i < result.length;i++){
+                result[i].reviewID = result[i]._id;
+                delete result[i]._id
+            }
             res.status(200).send({
                 reviews: result
             });

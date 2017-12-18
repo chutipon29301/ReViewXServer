@@ -74,4 +74,31 @@ module.exports = function (app, db, ObjectID) {
             });
         });
     });
+
+    app.post('/post/v1/listReadLaterReview', (req,res) => {
+        if(!req.body.userID){
+            return res.status(400).send({
+                err: 0,
+                msg: 'Bad Request'
+            });
+        }
+        db.collection('readLater').find({
+            userID: req.body.userID
+        }).toArray().then(result => {
+            Promise.all(result.map(readLater => {
+                console.log(readLater.reviewID);
+                return db.collection('review').findOne({
+                    _id: ObjectID(readLater.reviewID)
+                });
+            })).then(data => {
+                data.map(review => {
+                    review.reviewID = review._id;
+                    delete review._id;
+                });
+                res.status(200).send({
+                    reviews: data
+                });
+            });
+        });
+    });
 }

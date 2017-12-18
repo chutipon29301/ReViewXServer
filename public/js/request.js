@@ -45,8 +45,19 @@ $('#addLocation').click(_ => {
     });
 });
 
+
 $('#deleteLocation').click(_ => {
     $.post('/post/v1/deleteLocation', $('#deleteLocationForm').serialize()).then( data => {
+        console.log(data);
+        alert(data);
+    }).catch(err => {
+        console.log(err);
+        alert(err.responseText);
+    });
+});
+
+$('#addReadLater').click(_ => {
+    $.post('/post/v1/addReadLater', $('#addReadLaterForm').serialize()).then( data => {
         console.log(data);
         alert(data);
     }).catch(err => {

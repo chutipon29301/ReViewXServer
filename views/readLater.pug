@@ -2,6 +2,7 @@ extends htmlTemplate.pug
 block breadcrumb
     li.breadcrumb-item.active Location
 block content
+    +requestBox('Add ReadLater', 'addReadLaterForm', 'addReadLater', 'userID', 'reviewID')
     +requestBox('Delete ReadLater', 'deleteReadLaterForm', 'deleteReadLater', 'readLaterID')
 block script
     script(src='js/request.js')
