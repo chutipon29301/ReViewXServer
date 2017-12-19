@@ -1,6 +1,6 @@
-module.exports = function (app, db, ObjectID) {
+module.exports = function (app, db, ObjectID, request, rpn) {
 
-    app.get('/reviewdb', (req,res) => {
+    app.get('/reviewdb', (req, res) => {
         db.collection('review').find({}).toArray().then(result => {
             res.render('reviewdb', {
                 reviews: result
@@ -52,6 +52,32 @@ module.exports = function (app, db, ObjectID) {
         });
     });
 
+    app.post('/post/v1/getReview', (req, res) => {
+        if (!req.body.reviewID) {
+            return res.status(400).send({
+                err: 0,
+                msg: 'Bad Request'
+            });
+        }
+        db.collection('review').findOne({
+            _id: ObjectID(req.body.reviewID)
+        }).then(result => {
+            delete result._id;
+            var promise = [];
+            promise.push(rpn('http://graph.facebook.com/' + result.facebookID + '/picture?height=150&width=150&redirect=false', {
+                json: true
+            }));
+            promise.push(rpn('https://graph.facebook.com/' + result.facebookID + '?fields=name&access_token=134837027180827|mR4il1x654VS7BWsyPDhWFOIINs',{
+                json: true
+            }));
+            Promise.all(promise).then(response => {
+                    result.facebookPic = response[0].data.url;
+                    result.facebookName = response[1].name;
+                res.status(200).send(result);
+            });
+        });
+    });
+
     app.post('/post/v1/listReviewForMovie', (req, res) => {
         if (!req.body.movieID) {
             return res.status(400).send({
@@ -62,7 +88,7 @@ module.exports = function (app, db, ObjectID) {
         db.collection('review').find({
             movieID: parseInt(req.body.movieID)
         }).toArray().then(result => {
-            for(let i = 0; i < result.length;i++){
+            for (let i = 0; i < result.length; i++) {
                 result[i].reviewID = result[i]._id;
                 delete result[i]._id
             }

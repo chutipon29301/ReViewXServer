@@ -3,6 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var ObjectID = require('mongodb').ObjectID
 var request = require('request');
+var rpn = require('request-promise-native');
 
 var app = express();
 
@@ -55,7 +56,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/ReviewXServer', function (err, db
     require('./script/genre.js')(app, db, request);
     require('./script/user.js')(app, db);
     require('./script/movieSuggestion.js')(app, db, request);
-    require('./script/review.js')(app, db, ObjectID);
+    require('./script/review.js')(app, db, ObjectID, request, rpn);
     require('./script/location.js')(app, db, ObjectID);
     require('./script/search.js')(app, db, request);
     require('./script/readLater.js')(app, db, ObjectID);
