@@ -1,4 +1,4 @@
-module.exports = function (app, db, ObjectID) {
+module.exports = function (app, db, ObjectID, request, rpn) {
 
     app.get('/readLaterdb', (req, res) => {
         db.collection('readLater').find({}).toArray().then(result => {
@@ -103,19 +103,34 @@ module.exports = function (app, db, ObjectID) {
         }
         db.collection('readLater').find({
             userID: req.body.userID
-        }).toArray().then(result => {
-            Promise.all(result.map(readLater => {
-                console.log(readLater.reviewID);
+        }).toArray().then(readLaters => {
+            Promise.all(readLaters.map(readLater => {
+                readLater.readLaterID = readLater._id;
+                delete readLater._id;
                 return db.collection('review').findOne({
                     _id: ObjectID(readLater.reviewID)
+                }).then(review => {
+                    return Promise.all([
+                        rpn('https://graph.facebook.com/' + review.facebookID + '?fields=name&access_token=134837027180827|mR4il1x654VS7BWsyPDhWFOIINs', {
+                            json: true
+                        }), rpn('https://api.themoviedb.org/3/movie/' + review.movieID + '?api_key=af56062ca42de4534123ddaaf8a73a21&language=en-US', {
+                            json: true
+                        }), db.collection('review').findOne({
+                            _id: ObjectID(readLater.reviewID)
+                        })
+                    ]);
                 });
-            })).then(data => {
-                data.map(review => {
-                    review.reviewID = review._id;
-                    delete review._id;
-                });
+            })).then(result => {
+                response = [];
+                for (let i = 0; i < result.length; i++) {
+                    response.push(result[i][2]);
+                    response[i].reviewID = response[i]._id;
+                    delete response[i]._id;
+                    response[i].moviePic = 'https://image.tmdb.org/t/p/w500' + result[i][1].poster_path;
+                    response[i].facebookName = result[i][0].name;
+                }
                 res.status(200).send({
-                    reviews: data
+                    reviews: response
                 });
             });
         });
