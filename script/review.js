@@ -67,12 +67,12 @@ module.exports = function (app, db, ObjectID, request, rpn) {
             promise.push(rpn('http://graph.facebook.com/' + result.facebookID + '/picture?height=150&width=150&redirect=false', {
                 json: true
             }));
-            promise.push(rpn('https://graph.facebook.com/' + result.facebookID + '?fields=name&access_token=134837027180827|mR4il1x654VS7BWsyPDhWFOIINs',{
+            promise.push(rpn('https://graph.facebook.com/' + result.facebookID + '?fields=name&access_token=134837027180827|mR4il1x654VS7BWsyPDhWFOIINs', {
                 json: true
             }));
             Promise.all(promise).then(response => {
-                    result.facebookPic = response[0].data.url;
-                    result.facebookName = response[1].name;
+                result.facebookPic = response[0].data.url;
+                result.facebookName = response[1].name;
                 res.status(200).send(result);
             });
         });
@@ -93,13 +93,17 @@ module.exports = function (app, db, ObjectID, request, rpn) {
                 delete review._id;
                 return Promise.all([rpn('http://graph.facebook.com/' + review.facebookID + '/picture?height=150&width=150&redirect=false', {
                     json: true
-                }),rpn('https://graph.facebook.com/' + review.facebookID + '?fields=name&access_token=134837027180827|mR4il1x654VS7BWsyPDhWFOIINs',{
+                }), rpn('https://graph.facebook.com/' + review.facebookID + '?fields=name&access_token=134837027180827|mR4il1x654VS7BWsyPDhWFOIINs', {
+                    json: true
+                }), rpn('https://api.themoviedb.org/3/movie/' + review.movieID + '?api_key=af56062ca42de4534123ddaaf8a73a21&language=en-US', {
                     json: true
                 })]);
             })).then(data => {
-                for(let i = 0; i < data.length; i++){
+                for (let i = 0; i < data.length; i++) {
                     result[i].facebookPic = data[i][0].data.url;
                     result[i].facebookName = data[i][1].name;
+                    result[i].movieName = data[i][2].title;
+                    result[i].moviePic = 'https://image.tmdb.org/t/p/w500' + data[i][2].poster_path;
                 }
                 res.status(200).send({
                     reviews: result
@@ -123,13 +127,17 @@ module.exports = function (app, db, ObjectID, request, rpn) {
                 delete review._id;
                 return Promise.all([rpn('http://graph.facebook.com/' + review.facebookID + '/picture?height=150&width=150&redirect=false', {
                     json: true
-                }),rpn('https://graph.facebook.com/' + review.facebookID + '?fields=name&access_token=134837027180827|mR4il1x654VS7BWsyPDhWFOIINs',{
+                }), rpn('https://graph.facebook.com/' + review.facebookID + '?fields=name&access_token=134837027180827|mR4il1x654VS7BWsyPDhWFOIINs', {
+                    json: true
+                }), rpn('https://api.themoviedb.org/3/movie/' + review.movieID + '?api_key=af56062ca42de4534123ddaaf8a73a21&language=en-US', {
                     json: true
                 })]);
             })).then(data => {
-                for(let i = 0; i < data.length; i++){
+                for (let i = 0; i < data.length; i++) {
                     result[i].facebookPic = data[i][0].data.url;
                     result[i].facebookName = data[i][1].name;
+                    result[i].movieName = data[i][2].title;
+                    result[i].moviePic = 'https://image.tmdb.org/t/p/w500' + data[i][2].poster_path;
                 }
                 res.status(200).send({
                     reviews: result

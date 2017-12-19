@@ -120,4 +120,27 @@ module.exports = function (app, db, ObjectID) {
             });
         });
     });
+
+    app.post('/post/v1/isInReadLater', (req, res) => {
+        if (!(req.body.userID && req.body.reviewID)) {
+            return res.status(400).send({
+                err: 0,
+                msg: 'Bad Request'
+            });
+        }
+        db.collection('readLater').findOne({
+            userID: req.body.userID,
+            reviewID: req.body.reviewID
+        }).then(result => {
+            if (result === null) {
+                return res.status(200).send({
+                    isReadLater: false
+                });
+            } else {
+                return res.status(200).send({
+                    isReadLater: true
+                });
+            }
+        });
+    });
 }
