@@ -88,12 +88,22 @@ module.exports = function (app, db, ObjectID, request, rpn) {
         db.collection('review').find({
             movieID: parseInt(req.body.movieID)
         }).toArray().then(result => {
-            for (let i = 0; i < result.length; i++) {
-                result[i].reviewID = result[i]._id;
-                delete result[i]._id
-            }
-            res.status(200).send({
-                reviews: result
+            Promise.all(result.map(review => {
+                review.reviewID = review._id;
+                delete review._id;
+                return Promise.all([rpn('http://graph.facebook.com/' + review.facebookID + '/picture?height=150&width=150&redirect=false', {
+                    json: true
+                }),rpn('https://graph.facebook.com/' + review.facebookID + '?fields=name&access_token=134837027180827|mR4il1x654VS7BWsyPDhWFOIINs',{
+                    json: true
+                })]);
+            })).then(data => {
+                for(let i = 0; i < data.length; i++){
+                    result[i].facebookPic = data[i][0].data.url;
+                    result[i].facebookName = data[i][1].name;
+                }
+                res.status(200).send({
+                    reviews: result
+                });
             });
         });
     });
