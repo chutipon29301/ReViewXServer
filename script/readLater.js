@@ -1,6 +1,6 @@
 module.exports = function (app, db, ObjectID) {
 
-    app.get('/readLaterdb',(req,res) => {
+    app.get('/readLaterdb', (req, res) => {
         db.collection('readLater').find({}).toArray().then(result => {
             res.render('readLaterdb', {
                 readLaters: result
@@ -33,26 +33,45 @@ module.exports = function (app, db, ObjectID) {
     });
 
     app.post('/post/v1/deleteReadLater', (req, res) => {
-        if (!req.body.readLaterID) {
+        if (!((req.body.userID && req.body.reviewID) || req.body.readLaterID)) {
             return res.status(400).send({
                 err: 0,
                 msg: 'Bad Request'
             });
         }
-        db.collection('readLater').deleteOne({
-            _id: ObjectID(req.body.readLaterID)
-        }, (err, result) => {
-            if (err) {
-                return res.status(500).send({
-                    err: err.code,
-                    errInfo: err
+        if (req.body.userID && req.body.reviewID) {
+            db.collection('readLater').deleteMany({
+                userID: req.body.userID,
+                reviewID: req.body.reviewID
+            }, (err, result) => {
+                if (err) {
+                    return res.status(500).send({
+                        err: err.code,
+                        errInfo: err
+                    });
+                }
+                return res.status(200).send({
+                    err: -1,
+                    msg: 'OK'
                 });
-            }
-            res.status(200).send({
-                err: -1,
-                msg: 'OK'
             });
-        })
+        }
+        if (req.body.readLaterID) {
+            db.collection('readLater').deleteOne({
+                _id: ObjectID(req.body.readLaterID)
+            }, (err, result) => {
+                if (err) {
+                    return res.status(500).send({
+                        err: err.code,
+                        errInfo: err
+                    });
+                }
+                return res.status(200).send({
+                    err: -1,
+                    msg: 'OK'
+                });
+            });
+        }
     });
 
     app.post('/post/v1/listReadLater', (req, res) => {
@@ -75,8 +94,8 @@ module.exports = function (app, db, ObjectID) {
         });
     });
 
-    app.post('/post/v1/listReadLaterReview', (req,res) => {
-        if(!req.body.userID){
+    app.post('/post/v1/listReadLaterReview', (req, res) => {
+        if (!req.body.userID) {
             return res.status(400).send({
                 err: 0,
                 msg: 'Bad Request'

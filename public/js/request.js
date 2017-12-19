@@ -75,3 +75,13 @@ $('#deleteReadLater').click(_ => {
         alert(err.responseText);
     });
 });
+
+$('#deleteReadLaterAll').click(_ => {
+    $.post('/post/v1/deleteReadLater', $('#deleteReadLaterAllForm').serialize()).then( data => {
+        console.log(data);
+        alert(data);
+    }).catch(err => {
+        console.log(err);
+        alert(err.responseText);
+    });
+});
