@@ -70,9 +70,13 @@ module.exports = function (app, db, ObjectID, request, rpn) {
             promise.push(rpn('https://graph.facebook.com/' + result.facebookID + '?fields=name&access_token=134837027180827|mR4il1x654VS7BWsyPDhWFOIINs', {
                 json: true
             }));
+            promise.push(rpn('https://api.themoviedb.org/3/movie/' + result.movieID + '?api_key=af56062ca42de4534123ddaaf8a73a21&language=en-US', {
+                json: true
+            }));
             Promise.all(promise).then(response => {
                 result.facebookPic = response[0].data.url;
                 result.facebookName = response[1].name;
+                result.movieName = response[2].original_title;
                 res.status(200).send(result);
             });
         });
